@@ -9,10 +9,14 @@ function RingScore(props) {
 
 const styles = StyleSheet.create({
   circle: {
-    width: 100,
-    height: 100,
-    borderRadius: 100/2,
-    backgroundColor: 'red'
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "100%",
+    height: 300,
+    borderRadius: 200/2,
+    backgroundColor: 'transparent',
+    borderColor: 'red',
+    borderWidth: 24
 }
 });
 
