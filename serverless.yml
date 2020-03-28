@@ -61,7 +61,7 @@ outputs:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: server/handler.hello
     events:
       - http:
           path: hello
