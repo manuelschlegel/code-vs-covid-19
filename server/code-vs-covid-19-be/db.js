@@ -15,18 +15,18 @@ const sequelize = new Sequelize(
 
 const Report = ReportModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
-const Models = { User, Report };
+const Models = { Report, User };
 const connection = {};
 
 module.exports = async () => {
   if (connection.isConnected) {
     console.log("=> Using existing connection.");
-    return { Models };
+    return Models;
   }
 
   await sequelize.sync();
   await sequelize.authenticate();
   connection.isConnected = true;
   console.log("=> Created a new connection.");
-  return { Models };
+  return Models;
 };

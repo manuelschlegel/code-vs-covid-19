@@ -81,8 +81,7 @@ module.exports.create = async event => {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      //body: "Could not create the report."
-      body: JSON.stringify(err.message)
+      body: err.message || "Could not create the report."
     };
   }
 };
@@ -100,8 +99,7 @@ module.exports.getAll = async () => {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      //body: "Could not fetch the reports."
-      body: JSON.stringify(err.message)
+      body: err.message || "Could not fetch the reports."
     };
   }
 };
@@ -165,8 +163,7 @@ module.exports.getUser = async event => {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      //body: err.message || "Could not fetch the User."
-      body: JSON.stringify(err.message)
+      body: err.message || "Could not fetch the User."
     };
   }
 };
