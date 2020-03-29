@@ -1,17 +1,16 @@
 module.exports = (sequelize, type) => {
   return sequelize.define("user", {
     id: {
-      type: type.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      type: type.UUID,
+      primaryKey: true
     },
-    userId: type.STRING,
-    userMacAddress: type.STRING,
+    macAddress: type.STRING,
     username: type.STRING,
     creationDate: type.DATE,
-    userScore: type.INTEGER,
-    userRank: type.INTEGER,
-    userTitle: type.STRING,
-    userDailyConnections: type.INTEGER
+    lastScore: type.INTEGER,
+    score: type.INTEGER,
+    rank: type.INTEGER,
+    title: type.STRING,
+    dailyConnections: type.INTEGER
   });
 };

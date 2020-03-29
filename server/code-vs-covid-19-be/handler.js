@@ -74,12 +74,12 @@ module.exports.getAll = async () => {
 module.exports.getUser = async event => {
   try {
     const { User } = await connectToDatabase();
+
+    // Find the user.
     const userId = event.pathParameters.id;
     const user = await User.findOne({
       where: { userId: userId }
     });
-
-    // Find the user.
     if (!user) {
       return {
         statusCode: err.statusCode || 404,
@@ -88,12 +88,14 @@ module.exports.getUser = async event => {
       };
     }
 
+    // Determine the user's score and rank.
+
     const json = {
-      userId: user.userId,
-      userScore: user.userScore,
-      userRank: user.userRank,
-      userTitle: user.userTitle,
-      userDailyConnections: user.userDailyConnections,
+      userId: user.id,
+      userScore: null,
+      userRank: null,
+      userTitle: user.title,
+      userDailyConnections: user.dailyConnections,
       globalRanking: [
         { userRank: 1, userName: "DistanceKeeper", userScore: 18251 },
         { userRank: 2, userName: "Moeper", userScore: 15851 },
