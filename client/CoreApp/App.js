@@ -130,7 +130,7 @@ export default class App extends Component {
     })
   }
   async sendMessageToAPI(body) {
-    fetch('https://nq8suf5nj7.execute-api.us-east-1.amazonaws.com/dev/registerpheripheral', {
+    fetch('https://nq8suf5nj7.execute-api.us-east-1.amazonaws.com/dev/report', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
