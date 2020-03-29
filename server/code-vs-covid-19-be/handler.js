@@ -49,6 +49,7 @@ module.exports.create = async event => {
       body: JSON.stringify(report)
     };
   } catch (err) {
+    console.log({ err });
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
@@ -66,6 +67,7 @@ module.exports.getAll = async () => {
       body: JSON.stringify(reports)
     };
   } catch (err) {
+    console.log({ err });
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
@@ -115,6 +117,7 @@ module.exports.getUser = async event => {
       body: JSON.stringify(json)
     };
   } catch (err) {
+    console.log({ err });
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
