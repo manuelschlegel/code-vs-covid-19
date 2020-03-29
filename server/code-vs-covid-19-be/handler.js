@@ -51,8 +51,8 @@ module.exports.create = async event => {
 
     // Increase user's daily connections, if user has not seen this macAdress yet.
     const hasAlreadySeenMacAddress = Report.findOne({
-      where: sequelize.where(
-        sequelize.fn("date", sequelize.col("timeStamp")),
+      where: Sequelize.where(
+        Sequelize.fn("date", Sequelize.col("timeStamp")),
         ">",
         new Date().getUTCFullYear() +
           "-" +
@@ -117,7 +117,7 @@ module.exports.getUser = async event => {
     }
 
     // Get user scores and ranks.
-    const rankedUsers = await sequelize.query(
+    const rankedUsers = await Sequelize.query(
       "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC"
     );
 
