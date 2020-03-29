@@ -72,13 +72,13 @@ module.exports.create = async event => {
     // Store report.
     const report = await Report.create(reportRequest);
 
-    const hasAlreadySeenMacAddress = hasAlreadySeenMacAddressQuery
-      ? true
-      : false;
+    const response = {
+      hasAlreadySeenMacAddress: hasAlreadySeenMacAddressQuery ? true : false
+    };
 
     return {
       statusCode: 200,
-      body: JSON.stringify(hasAlreadySeenMacAddress)
+      body: JSON.stringify(response)
     };
   } catch (err) {
     throw new HTTPError(
@@ -141,7 +141,7 @@ module.exports.getUser = async event => {
     }
     topFiveRankedUsers = rankedUsers.slice(0, 5);
 
-    const json = {
+    const response = {
       userId: user.id,
       userScore: user.score,
       userRank: user.rank,
@@ -152,7 +152,7 @@ module.exports.getUser = async event => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(json)
+      body: JSON.stringify(response)
     };
   } catch (err) {
     throw new HTTPError(
