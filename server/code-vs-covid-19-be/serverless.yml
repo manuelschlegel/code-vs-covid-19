@@ -9,24 +9,24 @@ provider:
   name: aws
   runtime: nodejs12.x
   timeout: 30
-  stage: ${self:custom.secrets.NODE_ENV}
+  stage: ${param:NODE_ENV}
   environment:
-    NODE_ENV: ${self:custom.secrets.NODE_ENV}
-    DB_NAME: ${self:custom.secrets.DB_NAME}
-    DB_USER: ${self:custom.secrets.DB_USER}
-    DB_PASSWORD: ${self:custom.secrets.DB_PASSWORD}
-    DB_HOST: ${self:custom.secrets.DB_HOST}
-    DB_PORT: ${self:custom.secrets.DB_PORT}
+    NODE_ENV: ${param:NODE_ENV}
+    DB_NAME: ${param:DB_NAME}
+    DB_USER: ${param:DB_USER}
+    DB_PASSWORD: ${param:DB_PASSWORD}
+    DB_HOST: ${param:DB_HOST}
+    DB_PORT: ${param:DB_PORT}
   vpc:
     securityGroupIds:
-      - ${self:custom.secrets.SECURITY_GROUP_ID}
+      - ${param:SECURITY_GROUP_ID}
     subnetIds:
-      - ${self:custom.secrets.SUBNET1_ID}
-      - ${self:custom.secrets.SUBNET2_ID}
-      - ${self:custom.secrets.SUBNET3_ID}
-      - ${self:custom.secrets.SUBNET4_ID}
-      - ${self:custom.secrets.SUBNET5_ID}
-      - ${self:custom.secrets.SUBNET6_ID}
+      - ${param:SUBNET1_ID}
+      - ${param:SUBNET2_ID}
+      - ${param:SUBNET3_ID}
+      - ${param:SUBNET4_ID}
+      - ${param:SUBNET5_ID}
+      - ${param:SUBNET6_ID}
 
 functions:
   healthCheck:
