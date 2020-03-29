@@ -40,11 +40,10 @@ module.exports.create = async event => {
     });
 
     if (!user) {
-      return {
-        statusCode: err.statusCode || 404,
-        headers: { "Content-Type": "text/plain" },
-        body: err.message || "Could not find or create the user."
-      };
+      throw new HTTPError(
+        err.statusCode || 500,
+        err.message || "Could not find or create the user."
+      );
     }
 
     // Increase user's daily connections, if user has not seen this macAdress yet.
@@ -83,12 +82,10 @@ module.exports.create = async event => {
       )
     };
   } catch (err) {
-    console.log({ err });
-    return {
-      statusCode: err.statusCode || 500,
-      headers: { "Content-Type": "text/plain" },
-      body: err.message || "Could not create the report."
-    };
+    throw new HTTPError(
+      err.statusCode || 500,
+      err.message || "Could not create the report."
+    );
   }
 };
 
@@ -101,12 +98,10 @@ module.exports.getAll = async () => {
       body: JSON.stringify(reports)
     };
   } catch (err) {
-    console.log({ err });
-    return {
-      statusCode: err.statusCode || 500,
-      headers: { "Content-Type": "text/plain" },
-      body: err.message || "Could not fetch the reports."
-    };
+    throw new HTTPError(
+      err.statusCode || 500,
+      err.message || "Could not fetch the reports."
+    );
   }
 };
 
@@ -120,11 +115,10 @@ module.exports.getUser = async event => {
       where: { id: userId }
     });
     if (!user) {
-      return {
-        statusCode: err.statusCode || 404,
-        headers: { "Content-Type": "text/plain" },
-        body: err.message || "Could not find the user."
-      };
+      throw new HTTPError(
+        err.statusCode || 500,
+        err.message || "Could not find the user."
+      );
     }
 
     // Get user scores and ranks.
@@ -163,12 +157,10 @@ module.exports.getUser = async event => {
       body: JSON.stringify(json)
     };
   } catch (err) {
-    console.log({ err });
-    return {
-      statusCode: err.statusCode || 500,
-      headers: { "Content-Type": "text/plain" },
-      body: err.message || "Could not fetch the User."
-    };
+    throw new HTTPError(
+      err.statusCode || 500,
+      err.message || "Could not find the user."
+    );
   }
 };
 
@@ -176,7 +168,7 @@ const calculateScore = (lastScore, dailyConnections) => {
   const minutes = new Date().getUTCMinutes() + new Date().getUTCHours() * 60;
   const score = Math.max(
     0,
-    lastScore -
+    lastScore +
       (minutes * 100) / 1440 -
       dailyConnections -
       Math.pow(dailyConnections, 1.2)
