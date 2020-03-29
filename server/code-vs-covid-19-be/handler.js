@@ -38,11 +38,24 @@ module.exports.create = async event => {
       }
     });
 
+    if (!user) {
+      return {
+        statusCode: err.statusCode || 404,
+        headers: { "Content-Type": "text/plain" },
+        body: err.message || "Could not find or create the user."
+      };
+    }
+
     // Store report.
     const report = await Report.create(reportRequest);
+
+    // Increase user's daily connections.
+    User.increment(["dailyConnections"], {
+      where: { id: reportRequest.userId }
+    });
+
     return {
-      statusCode: 200,
-      body: JSON.stringify(report)
+      statusCode: 200
     };
   } catch (err) {
     console.log({ err });

@@ -8,9 +8,8 @@ module.exports = (sequelize, type) => {
     username: type.STRING,
     creationDate: type.DATE,
     lastScore: type.INTEGER,
-    score: type.INTEGER,
+    dailyConnections: type.INTEGER,
     rank: type.INTEGER,
-    title: type.STRING,
-    dailyConnections: type.INTEGER
+    title: type.STRING
   });
 };
