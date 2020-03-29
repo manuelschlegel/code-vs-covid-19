@@ -52,9 +52,27 @@ module.exports.getAll = async () => {
 
 module.exports.getUser = async event => {
   try {
+    let json = {
+      userId: "uausdfasdufausdufasudf",
+      userScore: 1122,
+      userRank: 1152,
+      userTitle: "Corona-Rookie",
+      userDailyConnections: 36,
+      globalRanking: [
+        { userRank: 1, userName: "DistanceKeeper", userScore: 18251 },
+        { userRank: 2, userName: "Moeper", userScore: 15851 },
+        { userRank: 3, userName: "NeverLeaveHouse", userScore: 13800 },
+        {
+          userRank: 4,
+          userName: "SociallyIsolatedProgrammer",
+          userScore: 13550
+        },
+        { userRank: 5, userName: "RemoteDoctor", userScore: 11200 }
+      ]
+    };
     return {
       statusCode: 200,
-      body: JSON.stringify("USER: " + event.pathParameters.id)
+      body: JSON.stringify(json)
     };
   } catch (err) {
     return {
