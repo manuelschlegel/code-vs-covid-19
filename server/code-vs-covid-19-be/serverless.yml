@@ -54,13 +54,6 @@ functions:
           path: users/{id}
           method: get
           cors: true
-  getUser:
-    handler: handler.getUser
-    events:
-      - http:
-          path: users/{id}
-          method: get
-          cors: true
   setAllUserLastScore:
     handler: handler.setAllUserLastScore
     events:
