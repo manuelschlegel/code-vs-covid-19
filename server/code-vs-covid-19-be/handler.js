@@ -52,15 +52,19 @@ module.exports.create = async event => {
 
     // Increase user's daily connections, if user has not seen this macAdress yet.
     const hasAlreadySeenMacAddress = Report.findOne({
-      where: Sequelize.where(
-        Sequelize.fn("date", Sequelize.col("timeStamp")),
-        ">",
-        new Date().getUTCFullYear() +
-          "-" +
-          new Date().getUTCMonth() +
-          "-" +
-          new Date().getUTCDate()
-      )
+      where: {
+        userId: reportRequest.userId,
+        userMacAddress: reportRequest.userMacAddress,
+        timeStampSinceMidnight: Sequelize.where(
+          Sequelize.fn("date", Sequelize.col("timeStamp")),
+          ">",
+          new Date().getUTCFullYear() +
+            "-" +
+            new Date().getUTCMonth() +
+            "-" +
+            new Date().getUTCDate()
+        )
+      }
     });
 
     if (!hasAlreadySeenMacAddress) {
