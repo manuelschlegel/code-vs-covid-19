@@ -162,7 +162,7 @@ module.exports.getUser = async event => {
   }
 };
 
-module.exports.setAllUserLastScore = async () => {
+module.exports.setAllUserLastScore = () => {
   try {
     const { User, Report, sequelize } = await connectToDatabase();
 

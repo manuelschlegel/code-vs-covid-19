@@ -61,6 +61,10 @@ functions:
           path: users/{id}
           method: get
           cors: true
+  setAllUserLastScore:
+    handler: handler.setAllUserLastScore
+    events:
+      - schedule: rate(2 hours)
 
 plugins:
   - serverless-offline
