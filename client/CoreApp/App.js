@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableHighlight,
   NativeEventEmitter,
   NativeModules,
   Platform,
   PermissionsAndroid,
-  ScrollView,
   AppState,
-  FlatList,
   Dimensions,
-  Button,
-  SafeAreaView,
-  AsyncStorage
 } from 'react-native';
-import BleManager from 'react-native-ble-manager';
 
+// npm library import
+import BleManager from 'react-native-ble-manager';
 import DeviceInfo from 'react-native-device-info';
 
+// local file import
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MainScreen from './screens/MainScreen';
+
+//get window dimensions
 const window = Dimensions.get('window');
 
+//set up bluetooth tracker
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
+//create navigator
+const Stack = createStackNavigator();
 
 export default class App extends Component {
   constructor(){
@@ -111,13 +112,14 @@ export default class App extends Component {
     if (!peripheral.name) {
       peripheral.name = 'none';
     }
-
+    let time = new Date().toISOString()
     let body = JSON.stringify({
       userId: this.state.userID,
-      userMacAdress: 'none',
-      detectedDeviceMacAdress: peripheral.id,
+      userMacAddress: 'none',
+      detectedDeviceMacAddress: peripheral.id,
       detectedDeviceName: peripheral.name,
-      detectedDeviceRssi: peripheral.rssi
+      detectedDeviceRssi: peripheral.rssi,
+      timeStamp: time
     })
     this.sendMessageToAPI(body);
 
@@ -127,7 +129,6 @@ export default class App extends Component {
       latestPeripheral: peripheral
     })
   }
-
   async sendMessageToAPI(body) {
     fetch('https://nq8suf5nj7.execute-api.us-east-1.amazonaws.com/dev/registerpheripheral', {
       method: 'POST',
@@ -139,34 +140,14 @@ export default class App extends Component {
     });
   }
   
-  
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container}>
-          <View style={{margin: 10}}>
-            <Text>User ID: {this.state.userID}</Text>
-            <Text>{this.state.latestPeripheral.id}</Text>
-          </View>
-        </View>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="KeepDistance">
+          <Stack.Screen name="KeepDistance" component={MainScreen} />
+          <Stack.Screen name="Details" component={MainScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-    width: window.width,
-    height: window.height
-  },
-  scroll: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    margin: 10,
-  },
-  row: {
-    margin: 10
-  },
-});
