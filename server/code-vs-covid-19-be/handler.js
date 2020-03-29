@@ -23,7 +23,7 @@ module.exports.create = async event => {
     const reportRequest = JSON.parse(event.body);
 
     // Find and create user if he doesn't exist.
-    const user = await User.findOrCreate({
+    const [user, created] = await User.findOrCreate({
       where: { userId: userId },
       defaults: {
         userId: reportRequest.userId,
@@ -36,6 +36,11 @@ module.exports.create = async event => {
         userDailyConnections: 0
       }
     });
+
+    console.log({ created }); // The boolean indicating whether this instance was just created
+    if (created) {
+      console.log({ user }); // This will certainly be 'Technical Lead JavaScript'
+    }
 
     // Store report.
     const report = await Report.create(reportRequest);
