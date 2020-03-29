@@ -74,7 +74,10 @@ module.exports.create = async event => {
     const report = await Report.create(reportRequest);
 
     return {
-      statusCode: 200
+      statusCode: 200,
+      body: JSON.stringify(
+        "hasAlreadySeenMacAddress: " + hasAlreadySeenMacAddress
+      )
     };
   } catch (err) {
     console.log({ err });
