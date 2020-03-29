@@ -1,4 +1,4 @@
-const Sequelize = require("Sequelize");
+const Sequelize = require("sequelize");
 const ReportModel = require("./models/Report");
 const UserModel = require("./models/User");
 const connectToDatabase = require("./db"); // initialize connection
