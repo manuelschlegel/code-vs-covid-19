@@ -33,6 +33,8 @@ module.exports.create = async event => {
   }
 };
 
+/*
+
 module.exports.getOne = async event => {
   try {
     const { Note } = await connectToDatabase();
@@ -120,3 +122,5 @@ module.exports.destroy = async event => {
     };
   }
 };
+
+*/

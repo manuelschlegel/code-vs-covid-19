@@ -1,3 +1,5 @@
+org: peakcoders
+app: code-vs-covid-19
 service: code-vs-covid-19
 
 custom:
@@ -40,34 +42,6 @@ functions:
       - http:
           path: notes
           method: post
-          cors: true
-  getOne:
-    handler: handler.getOne
-    events:
-      - http:
-          path: notes/{id}
-          method: get
-          cors: true
-  getAll:
-    handler: handler.getAll
-    events:
-      - http:
-          path: notes
-          method: get
-          cors: true
-  update:
-    handler: handler.update
-    events:
-      - http:
-          path: notes/{id}
-          method: put
-          cors: true
-  destroy:
-    handler: handler.destroy
-    events:
-      - http:
-          path: notes/{id}
-          method: delete
           cors: true
 
 plugins:
