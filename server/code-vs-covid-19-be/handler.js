@@ -119,7 +119,11 @@ module.exports.getUser = async event => {
 
     // Get user scores and ranks.
     const rankedUsers = await Sequelize.query(
-      "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC"
+      "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC",
+      {
+        model: UserModel,
+        mapToModel: true // pass true here if you have any mapped fields
+      }
     );
 
     let currentRank = 0;
