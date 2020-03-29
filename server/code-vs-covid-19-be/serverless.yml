@@ -63,9 +63,8 @@ functions:
           cors: true
   setAllUserLastScore:
     handler: handler.setAllUserLastScore
-    cron:
-      active: true
-      value: '* * * * *'
+    events:
+      - schedule: rate(2 hours)
 
 plugins:
   - serverless-offline
