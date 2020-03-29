@@ -65,9 +65,12 @@ module.exports.create = async event => {
     });
 
     if (!hasAlreadySeenMacAddress) {
+      console.log("increment");
       User.increment(["dailyConnections"], {
         where: { id: reportRequest.userId }
       });
+    } else {
+      console.log("no increment");
     }
 
     // Store report.
