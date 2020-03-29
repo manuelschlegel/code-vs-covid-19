@@ -37,11 +37,6 @@ module.exports.create = async event => {
       }
     });
 
-    console.log({ created }); // The boolean indicating whether this instance was just created
-    if (created) {
-      console.log({ user }); // This will certainly be 'Technical Lead JavaScript'
-    }
-
     // Store report.
     const report = await Report.create(reportRequest);
     return {
@@ -80,7 +75,7 @@ module.exports.getUser = async event => {
   try {
     const { User } = await connectToDatabase();
     const userId = event.pathParameters.id;
-    const user = await User.find({
+    const user = await User.findOne({
       where: { userId: userId }
     });
 
