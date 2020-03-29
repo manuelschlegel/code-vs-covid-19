@@ -179,7 +179,7 @@ module.exports.setAllUserLastScore = async () => {
         rankedUser.dailyConnections
       );
       const result = await User.update(
-        { lastScore: rankedUser.lastScore },
+        { lastScore: rankedUser.score },
         { where: { id: rankedUser.id } }
       );
     }
