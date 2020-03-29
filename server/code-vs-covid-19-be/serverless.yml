@@ -64,7 +64,8 @@ functions:
   setAllUserLastScore:
     handler: handler.setAllUserLastScore
     events:
-      - schedule: rate(1 minute)
+      - schedule:
+          rate: rate(1 minute)
 
 plugins:
   - serverless-offline
