@@ -2,9 +2,6 @@ org: peakcoders
 app: code-vs-covid-19
 service: code-vs-covid-19
 
-custom:
-  secrets: ${file(secrets.json)}
-
 provider:
   name: aws
   runtime: nodejs12.x
