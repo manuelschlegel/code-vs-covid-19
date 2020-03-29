@@ -24,7 +24,7 @@ module.exports.create = async event => {
 
     // Find and create user if he doesn't exist.
     const [user, created] = await User.findOrCreate({
-      where: { userId: reportRequest.userId },
+      where: { id: reportRequest.userId },
       defaults: {
         id: reportRequest.userId,
         macAddress: reportRequest.userMacAddress,
@@ -92,7 +92,7 @@ module.exports.getUser = async event => {
     // Find the user.
     const userId = event.pathParameters.id;
     const user = await User.findOne({
-      where: { userId: userId }
+      where: { id: userId }
     });
     if (!user) {
       return {
