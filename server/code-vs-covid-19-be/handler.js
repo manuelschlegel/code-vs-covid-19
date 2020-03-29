@@ -50,6 +50,21 @@ module.exports.getAll = async () => {
   }
 };
 
+module.exports.getUser = async event => {
+  try {
+    return {
+      statusCode: 200,
+      body: JSON.stringify("USER: " + event.pathParameters.id)
+    };
+  } catch (err) {
+    return {
+      statusCode: err.statusCode || 500,
+      headers: { "Content-Type": "text/plain" },
+      body: err.message || "Could not fetch the User."
+    };
+  }
+};
+
 /*
 
 module.exports.getOne = async event => {

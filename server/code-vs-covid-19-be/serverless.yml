@@ -50,6 +50,13 @@ functions:
           path: reports
           method: get
           cors: true
+  getUser:
+    handler: handler.getUser
+    events:
+      - http:
+          path: users/{id}
+          method: get
+          cors: true
 
 plugins:
   - serverless-offline
