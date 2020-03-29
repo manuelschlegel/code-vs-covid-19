@@ -16,7 +16,9 @@ import {
   SafeAreaView,
   AsyncStorage
 } from 'react-native';
-import BleManager from 'react-native-ble-manager';;
+import BleManager from 'react-native-ble-manager';
+
+import DeviceInfo from 'react-native-device-info';
 
 const window = Dimensions.get('window');
 
@@ -39,7 +41,7 @@ export default class App extends Component {
     this.handleStopScan = this.handleStopScan.bind(this);
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
 
-    this.state.userID = this._retrieveUserID();
+    this.state.userID = DeviceInfo.getUniqueId();
   }
 
   componentDidMount() {
@@ -69,31 +71,6 @@ export default class App extends Component {
       });
     }
 
-  }
-
-  _storeUserID = async () => {
-    userID = Math.floor(Math.random() * 100000000000000) + 1;
-    try {
-        await AsyncStorage.setItem('UserID', userID);
-    } catch (error) {
-        // Error saving data
-    }
-    return userID
-  }
-
-      // fetch the data back asyncronously
-  _retrieveUserID = async () => {
-    try {
-        let userID = await AsyncStorage.getItem('UserID');
-        if (value !== null) {
-            // Our data is fetched successfully
-            return userID
-        } else {
-          return this._storeUserID()
-        }
-    } catch (error) {
-        // Error retrieving data
-    }
   }
 
   handleAppStateChange(nextAppState) {
@@ -161,16 +138,16 @@ export default class App extends Component {
       body: body
     });
   }
-
-
-
+  
+  
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <View style={{margin: 10}}>
-            <Text>{this.state.latestPeripheral.id}</Text>      
-          </View>             
+            <Text>User ID: {this.state.userID}</Text>
+            <Text>{this.state.latestPeripheral.id}</Text>
+          </View>
         </View>
       </SafeAreaView>
     );

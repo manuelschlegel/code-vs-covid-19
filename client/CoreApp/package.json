@@ -13,6 +13,7 @@
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-ble-manager": "^7.2.0",
+    "react-native-device-info": "^5.5.3",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
