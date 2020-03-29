@@ -1,3 +1,4 @@
+const Sequelize = require("Sequelize");
 const ReportModel = require("./models/Report");
 const UserModel = require("./models/User");
 const connectToDatabase = require("./db"); // initialize connection
@@ -20,7 +21,7 @@ module.exports.healthCheck = async () => {
 
 module.exports.create = async event => {
   try {
-    const { sequelize, User, Report } = await connectToDatabase();
+    const { User, Report } = await connectToDatabase();
 
     const reportRequest = JSON.parse(event.body);
 
@@ -51,8 +52,8 @@ module.exports.create = async event => {
       where: {
         userId: reportRequest.userId,
         userMacAddress: reportRequest.userMacAddress,
-        timeStampSinceMidnight: sequelize.where(
-          sequelize.fn("date", sequelize.col("timeStamp")),
+        timeStampSinceMidnight: Sequelize.where(
+          Sequelize.fn("date", Sequelize.col("timeStamp")),
           ">",
           new Date().getUTCFullYear() +
             "-" +
@@ -88,7 +89,7 @@ module.exports.create = async event => {
 
 module.exports.getAll = async () => {
   try {
-    const { sequelize, User, Report } = await connectToDatabase();
+    const { User, Report } = await connectToDatabase();
     const reports = await Report.findAll();
     return {
       statusCode: 200,
@@ -107,7 +108,7 @@ module.exports.getAll = async () => {
 
 module.exports.getUser = async event => {
   try {
-    const { sequelize, User, Report } = await connectToDatabase();
+    const { User, Report } = await connectToDatabase();
 
     // Find the user.
     const userId = event.pathParameters.id;
@@ -123,7 +124,7 @@ module.exports.getUser = async event => {
     }
 
     // Get user scores and ranks.
-    const rankedUsers = await sequelize.query(
+    const rankedUsers = await Sequelize.query(
       "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC",
       {
         model: UserModel,
