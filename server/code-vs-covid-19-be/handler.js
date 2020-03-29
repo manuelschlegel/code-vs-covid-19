@@ -20,6 +20,8 @@ module.exports.create = async event => {
   try {
     const { User, Report } = await connectToDatabase();
 
+    console.log({ event });
+
     const reportRequest = JSON.parse(event.body);
 
     // Find and create user if he doesn't exist.
