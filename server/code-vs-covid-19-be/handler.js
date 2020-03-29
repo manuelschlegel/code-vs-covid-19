@@ -126,19 +126,6 @@ module.exports.getUser = async event => {
       "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC"
     );
 
-    const calculateScore = (lastScore, dailyConnections) => {
-      const minutes =
-        new Date().getUTCMinutes() + new Date().getUTCHours() * 60;
-      const score =
-        lastScore -
-        (minutes * 100) / 1440 -
-        dailyConnections -
-        Math.pow(dailyConnections, 1.2);
-      const scoreRounded = Math.round(score);
-
-      return scoreRounded;
-    };
-
     let currentRank = 0;
     for (const rankedUser of rankedUsers) {
       console.log({ rankedUser });
@@ -177,6 +164,20 @@ module.exports.getUser = async event => {
       body: err.message || "Could not fetch the User."
     };
   }
+};
+
+const calculateScore = (lastScore, dailyConnections) => {
+  const minutes = new Date().getUTCMinutes() + new Date().getUTCHours() * 60;
+  const score = Math.max(
+    0,
+    lastScore -
+      (minutes * 100) / 1440 -
+      dailyConnections -
+      Math.pow(dailyConnections, 1.2)
+  );
+  const scoreRounded = Math.round(score);
+
+  return scoreRounded;
 };
 
 /*
