@@ -18,8 +18,27 @@ module.exports.healthCheck = async () => {
 
 module.exports.create = async event => {
   try {
-    const { Report } = await connectToDatabase();
-    const report = await Report.create(JSON.parse(event.body));
+    const { User, Report } = await connectToDatabase();
+
+    const reportRequest = JSON.parse(event.body);
+
+    // Find and create user if he doesn't exist.
+    const user = await User.findOrCreate({
+      where: { userId: userId },
+      defaults: {
+        userId: reportRequest.userId,
+        userMacAddress: reportRequest.userMacAddress,
+        username: null,
+        creationDate: reportRequest.timeStamp,
+        userScore: 0,
+        userRank: 0,
+        userTitle: "Corona Rookie",
+        userDailyConnections: 0
+      }
+    });
+
+    // Store report.
+    const report = await Report.create(reportRequest);
     return {
       statusCode: 200,
       body: JSON.stringify(report)
@@ -52,12 +71,27 @@ module.exports.getAll = async () => {
 
 module.exports.getUser = async event => {
   try {
-    let json = {
-      userId: "uausdfasdufausdufasudf",
-      userScore: 1122,
-      userRank: 1152,
-      userTitle: "Corona-Rookie",
-      userDailyConnections: 36,
+    const { User } = await connectToDatabase();
+    const userId = event.pathParameters.id;
+    const user = await User.find({
+      where: { userId: userId }
+    });
+
+    // Find the user.
+    if (!user) {
+      return {
+        statusCode: err.statusCode || 404,
+        headers: { "Content-Type": "text/plain" },
+        body: err.message || "Could not find the user."
+      };
+    }
+
+    const json = {
+      userId: user.userId,
+      userScore: user.userScore,
+      userRank: user.userRank,
+      userTitle: user.userTitle,
+      userDailyConnections: user.userDailyConnections,
       globalRanking: [
         { userRank: 1, userName: "DistanceKeeper", userScore: 18251 },
         { userRank: 2, userName: "Moeper", userScore: 15851 },
@@ -70,6 +104,7 @@ module.exports.getUser = async event => {
         { userRank: 5, userName: "RemoteDoctor", userScore: 11200 }
       ]
     };
+
     return {
       statusCode: 200,
       body: JSON.stringify(json)
