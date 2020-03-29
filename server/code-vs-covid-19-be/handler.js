@@ -33,6 +33,23 @@ module.exports.create = async event => {
   }
 };
 
+module.exports.getAll = async () => {
+  try {
+    const { Report } = await connectToDatabase();
+    const reports = await Report.findAll();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(reports)
+    };
+  } catch (err) {
+    return {
+      statusCode: err.statusCode || 500,
+      headers: { "Content-Type": "text/plain" },
+      body: "Could not fetch the reports."
+    };
+  }
+};
+
 /*
 
 module.exports.getOne = async event => {
