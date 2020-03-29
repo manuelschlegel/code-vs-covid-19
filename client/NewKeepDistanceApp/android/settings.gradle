@@ -1,5 +1,0 @@
-rootProject.name = 'NewKeepDistanceApp'
-include ':react-native-p2pkit'
-project(':react-native-p2pkit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-p2pkit/android')
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-include ':app'
