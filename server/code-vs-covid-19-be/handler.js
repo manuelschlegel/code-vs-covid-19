@@ -127,7 +127,6 @@ module.exports.getUser = async event => {
 
     let currentRank = 0;
     for (const rankedUser of rankedUsers) {
-      console.log({ rankedUser });
       currentRank++;
       rankedUser.rank = currentRank;
       rankedUser.score = calculateScore(
@@ -163,6 +162,40 @@ module.exports.getUser = async event => {
   }
 };
 
+module.exports.setAllUserLastScore = async () => {
+  try {
+    const { User, Report, sequelize } = await connectToDatabase();
+
+    // Get all user scores.
+    const [rankedUsers, metadata] = await sequelize.query(
+      "SELECT * FROM code_vs_covid_19_db.users"
+    );
+
+    // Calculate new scores and update database.
+    // This can be further otpimized for performance.
+    for (const rankedUser of rankedUsers) {
+      rankedUser.score = calculateScore(
+        rankedUser.lastScore,
+        rankedUser.dailyConnections
+      );
+      const result = await User.update(
+        { lastScore: rankedUser.lastScore },
+        { where: { id: rankedUser.id } }
+      );
+    }
+
+    return {
+      statusCode: 200
+    };
+  } catch (err) {
+    throw new HTTPError(
+      err.statusCode || 500,
+      err.message || "Something went wrong."
+    );
+  }
+};
+
+// HELPER FUNCTIONS
 const calculateScore = (lastScore, dailyConnections) => {
   const minutes = new Date().getUTCMinutes() + new Date().getUTCHours() * 60;
   const score = Math.max(
