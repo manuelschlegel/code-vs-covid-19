@@ -47,7 +47,7 @@ module.exports.create = async event => {
     }
 
     // Increase user's daily connections, if user has not seen this macAdress yet.
-    const hasAlreadySeenMacAddress = await Report.findOne({
+    const hasAlreadySeenMacAddressQuery = await Report.findOne({
       where: {
         userId: reportRequest.userId,
         userMacAddress: reportRequest.userMacAddress,
@@ -63,23 +63,22 @@ module.exports.create = async event => {
       }
     });
 
-    if (!hasAlreadySeenMacAddress) {
-      console.log("increment");
+    if (!hasAlreadySeenMacAddressQuery) {
       User.increment(["dailyConnections"], {
         where: { id: reportRequest.userId }
       });
-    } else {
-      console.log("no increment");
     }
 
     // Store report.
     const report = await Report.create(reportRequest);
 
+    const hasAlreadySeenMacAddress = hasAlreadySeenMacAddressQuery
+      ? true
+      : false;
+
     return {
       statusCode: 200,
-      body: JSON.stringify(
-        "hasAlreadySeenMacAddress: " + hasAlreadySeenMacAddress
-      )
+      body: JSON.stringify(hasAlreadySeenMacAddress)
     };
   } catch (err) {
     throw new HTTPError(
