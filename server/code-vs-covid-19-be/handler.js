@@ -122,7 +122,7 @@ module.exports.getUser = async event => {
     }
 
     // Get user scores and ranks.
-    const rankedUsers = await sequelize.query(
+    const [rankedUsers, metadata] = await sequelize.query(
       "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC"
     );
 
