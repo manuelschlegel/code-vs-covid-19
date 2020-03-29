@@ -143,7 +143,7 @@ module.exports.getUser = async event => {
     for (const rankedUser of rankedUsers) {
       currentRank++;
       rankedUser.rank = currentRank;
-      rankedUser.score = this.calculateScore(
+      rankedUser.score = calculateScore(
         rankedUser.lastScore,
         rankedUser.dailyConnections
       );
