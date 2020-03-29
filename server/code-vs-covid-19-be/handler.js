@@ -103,11 +103,16 @@ module.exports.getUser = async event => {
     }
 
     // Determine the user's score and rank.
+    const calculatedUserScore = calculateScore(
+      user.lastScore,
+      user.dailyConnections
+    );
+    const calculatedUserRank = null;
 
     const json = {
       userId: user.id,
-      userScore: null,
-      userRank: null,
+      userScore: calculatedUserScore,
+      userRank: calculatedUserRank,
       userTitle: user.title,
       userDailyConnections: user.dailyConnections,
       globalRanking: [
@@ -135,6 +140,17 @@ module.exports.getUser = async event => {
       body: err.message || "Could not fetch the User."
     };
   }
+};
+
+const calculateScore = (lastScore, dailyConnections) => {
+  const minutes = new Date().getUTCMinutes() + new Date().getUTCHours() * 60;
+  const score =
+    lastScore -
+    (minutes * 100) / 1440 -
+    dailyConnections -
+    Math.pow(dailyConnections, 1.2);
+
+  return score;
 };
 
 /*
