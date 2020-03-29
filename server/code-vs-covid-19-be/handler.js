@@ -18,17 +18,34 @@ module.exports.healthCheck = async () => {
 
 module.exports.create = async event => {
   try {
-    const { Note } = await connectToDatabase();
-    const note = await Note.create(JSON.parse(event.body));
+    const { Report } = await connectToDatabase();
+    const report = await Report.create(JSON.parse(event.body));
     return {
       statusCode: 200,
-      body: JSON.stringify(note)
+      body: JSON.stringify(report)
     };
   } catch (err) {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      body: "Could not create the note."
+      body: "Could not create the report."
+    };
+  }
+};
+
+module.exports.getAll = async () => {
+  try {
+    const { Report } = await connectToDatabase();
+    const reports = await Report.findAll();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(reports)
+    };
+  } catch (err) {
+    return {
+      statusCode: err.statusCode || 500,
+      headers: { "Content-Type": "text/plain" },
+      body: "Could not fetch the reports."
     };
   }
 };
@@ -37,39 +54,39 @@ module.exports.create = async event => {
 
 module.exports.getOne = async event => {
   try {
-    const { Note } = await connectToDatabase();
-    const note = await Note.findById(event.pathParameters.id);
-    if (!note)
+    const { Report } = await connectToDatabase();
+    const report = await Report.findById(event.pathParameters.id);
+    if (!report)
       throw new HTTPError(
         404,
-        `Note with id: ${event.pathParameters.id} was not found`
+        `Report with id: ${event.pathParameters.id} was not found`
       );
     return {
       statusCode: 200,
-      body: JSON.stringify(note)
+      body: JSON.stringify(report)
     };
   } catch (err) {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      body: err.message || "Could not fetch the Note."
+      body: err.message || "Could not fetch the Report."
     };
   }
 };
 
 module.exports.getAll = async () => {
   try {
-    const { Note } = await connectToDatabase();
-    const notes = await Note.findAll();
+    const { Report } = await connectToDatabase();
+    const reports = await Report.findAll();
     return {
       statusCode: 200,
-      body: JSON.stringify(notes)
+      body: JSON.stringify(reports)
     };
   } catch (err) {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      body: "Could not fetch the notes."
+      body: "Could not fetch the reports."
     };
   }
 };
@@ -77,48 +94,48 @@ module.exports.getAll = async () => {
 module.exports.update = async event => {
   try {
     const input = JSON.parse(event.body);
-    const { Note } = await connectToDatabase();
-    const note = await Note.findById(event.pathParameters.id);
-    if (!note)
+    const { Report } = await connectToDatabase();
+    const report = await Report.findById(event.pathParameters.id);
+    if (!report)
       throw new HTTPError(
         404,
-        `Note with id: ${event.pathParameters.id} was not found`
+        `Report with id: ${event.pathParameters.id} was not found`
       );
-    if (input.title) note.title = input.title;
-    if (input.description) note.description = input.description;
-    await note.save();
+    if (input.title) report.title = input.title;
+    if (input.description) report.description = input.description;
+    await report.save();
     return {
       statusCode: 200,
-      body: JSON.stringify(note)
+      body: JSON.stringify(report)
     };
   } catch (err) {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      body: err.message || "Could not update the Note."
+      body: err.message || "Could not update the Report."
     };
   }
 };
 
 module.exports.destroy = async event => {
   try {
-    const { Note } = await connectToDatabase();
-    const note = await Note.findById(event.pathParameters.id);
-    if (!note)
+    const { Report } = await connectToDatabase();
+    const report = await Report.findById(event.pathParameters.id);
+    if (!report)
       throw new HTTPError(
         404,
-        `Note with id: ${event.pathParameters.id} was not found`
+        `Report with id: ${event.pathParameters.id} was not found`
       );
-    await note.destroy();
+    await report.destroy();
     return {
       statusCode: 200,
-      body: JSON.stringify(note)
+      body: JSON.stringify(report)
     };
   } catch (err) {
     return {
       statusCode: err.statusCode || 500,
       headers: { "Content-Type": "text/plain" },
-      body: err.message || "Could destroy fetch the Note."
+      body: err.message || "Could destroy fetch the Report."
     };
   }
 };

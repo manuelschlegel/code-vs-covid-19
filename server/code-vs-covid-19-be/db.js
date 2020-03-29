@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const NoteModel = require("./models/Note");
+const ReportModel = require("./models/Report");
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -10,8 +10,8 @@ const sequelize = new Sequelize(
     port: process.env.DB_PORT
   }
 );
-const Note = NoteModel(sequelize, Sequelize);
-const Models = { Note };
+const Report = ReportModel(sequelize, Sequelize);
+const Models = { Report };
 const connection = {};
 
 module.exports = async () => {
