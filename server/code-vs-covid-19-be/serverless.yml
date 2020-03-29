@@ -40,7 +40,7 @@ functions:
     handler: handler.create
     events:
       - http:
-          path: reports
+          path: report
           method: post
           cors: true
 
