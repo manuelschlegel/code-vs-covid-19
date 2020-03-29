@@ -26,14 +26,15 @@ module.exports.create = async event => {
     const [user, created] = await User.findOrCreate({
       where: { userId: reportRequest.userId },
       defaults: {
-        userId: reportRequest.userId,
-        userMacAddress: reportRequest.userMacAddress,
+        id: reportRequest.userId,
+        macAddress: reportRequest.userMacAddress,
         username: null,
         creationDate: reportRequest.timeStamp,
-        userScore: 0,
-        userRank: 0,
-        userTitle: "Corona Rookie",
-        userDailyConnections: 0
+        lastScore: 0,
+        score: 0,
+        rank: 0,
+        title: "Corona Rookie",
+        dailyConnections: 0
       }
     });
 
