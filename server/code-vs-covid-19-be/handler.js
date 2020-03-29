@@ -21,7 +21,7 @@ module.exports.healthCheck = async () => {
 
 module.exports.create = async event => {
   try {
-    const { User, Report } = await connectToDatabase();
+    const { User, Report, sequelize } = await connectToDatabase();
 
     const reportRequest = JSON.parse(event.body);
 
@@ -88,7 +88,7 @@ module.exports.create = async event => {
 
 module.exports.getAll = async () => {
   try {
-    const { User, Report } = await connectToDatabase();
+    const { User, Report, sequelize } = await connectToDatabase();
     const reports = await Report.findAll();
     return {
       statusCode: 200,
@@ -106,7 +106,7 @@ module.exports.getAll = async () => {
 
 module.exports.getUser = async event => {
   try {
-    const { User, Report } = await connectToDatabase();
+    const { User, Report, sequelize } = await connectToDatabase();
 
     // Find the user.
     const userId = event.pathParameters.id;
