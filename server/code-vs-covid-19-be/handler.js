@@ -157,8 +157,8 @@ module.exports.getUser = async event => {
 
     const json = {
       userId: user.id,
-      userScore: calculatedUserScore,
-      userRank: calculatedUserRank,
+      userScore: user.score,
+      userRank: user.rank,
       userTitle: user.title,
       userDailyConnections: user.dailyConnections,
       globalRanking: topFiveRankedUsers
