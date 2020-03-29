@@ -125,6 +125,7 @@ module.exports.getUser = async event => {
     const rankedUsers = await sequelize.query(
       "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC"
     );
+    console.log({ rankedUsers });
 
     const calculateScore = (lastScore, dailyConnections) => {
       const minutes =
