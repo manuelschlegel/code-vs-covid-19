@@ -152,8 +152,9 @@ const calculateScore = (lastScore, dailyConnections) => {
     (minutes * 100) / 1440 -
     dailyConnections -
     Math.pow(dailyConnections, 1.2);
+  const scoreRounded = Math.round(score);
 
-  return score;
+  return scoreRounded;
 };
 
 /*
