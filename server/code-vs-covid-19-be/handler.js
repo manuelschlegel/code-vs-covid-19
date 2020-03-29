@@ -102,12 +102,25 @@ module.exports.getUser = async event => {
       };
     }
 
-    // Determine the user's score and rank.
-    const calculatedUserScore = calculateScore(
-      user.lastScore,
-      user.dailyConnections
+    // Get user scores and ranks.
+    const rankedUsers = await sequelize.query(
+      "SELECT * FROM code_vs_covid_19_db.users ORDER BY (lastScore - dailyConnections - POW(dailyConnections, 1.2)) DESC"
     );
-    const calculatedUserRank = null;
+
+    let currentRank = 0;
+    for (const rankedUser of rankedUsers) {
+      currentRank++;
+      rankedUser.rank = currentRank;
+      rankedUser.score = calculateScore(
+        rankedUser.lastScore,
+        rankedUser.dailyConnections
+      );
+
+      if (rankedUser.id === user.id) {
+        user.rank = rankedUser.rank;
+        user.score = rankedUser.score;
+      }
+    }
 
     const json = {
       userId: user.id,
@@ -115,17 +128,7 @@ module.exports.getUser = async event => {
       userRank: calculatedUserRank,
       userTitle: user.title,
       userDailyConnections: user.dailyConnections,
-      globalRanking: [
-        { userRank: 1, userName: "DistanceKeeper", userScore: 18251 },
-        { userRank: 2, userName: "Moeper", userScore: 15851 },
-        { userRank: 3, userName: "NeverLeaveHouse", userScore: 13800 },
-        {
-          userRank: 4,
-          userName: "SociallyIsolatedProgrammer",
-          userScore: 13550
-        },
-        { userRank: 5, userName: "RemoteDoctor", userScore: 11200 }
-      ]
+      globalRanking: rankedUsers
     };
 
     return {
