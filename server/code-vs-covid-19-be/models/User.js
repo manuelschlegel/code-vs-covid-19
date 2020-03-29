@@ -9,7 +9,6 @@ module.exports = (sequelize, type) => {
     creationDate: type.DATE,
     lastScore: type.INTEGER,
     dailyConnections: type.INTEGER,
-    rank: type.INTEGER,
     title: type.STRING
   });
 };

@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const ReportModel = require("./models/Report");
 const UserModel = require("./models/User");
+
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -11,6 +12,7 @@ const sequelize = new Sequelize(
     port: process.env.DB_PORT
   }
 );
+
 const Report = ReportModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
 const Models = { Report, User };

@@ -1,3 +1,6 @@
+const Sequelize = require("sequelize");
+const ReportModel = require("./models/Report");
+const UserModel = require("./models/User");
 const connectToDatabase = require("./db"); // initialize connection
 
 // simple Error constructor for handling HTTP error codes
@@ -31,10 +34,8 @@ module.exports.create = async event => {
         username: null,
         creationDate: reportRequest.timeStamp,
         lastScore: 0,
-        score: 0,
-        rank: 0,
-        title: "Corona Rookie",
-        dailyConnections: 0
+        dailyConnections: 0,
+        title: "Corona Rookie"
       }
     });
 
