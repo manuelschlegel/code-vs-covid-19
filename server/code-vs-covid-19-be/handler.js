@@ -48,7 +48,7 @@ module.exports.create = async event => {
     }
 
     // Increase user's daily connections, if user has not seen this macAdress yet.
-    const hasAlreadySeenMacAddress = Report.findOne({
+    const hasAlreadySeenMacAddress = await Report.findOne({
       where: {
         userId: reportRequest.userId,
         userMacAddress: reportRequest.userMacAddress,
