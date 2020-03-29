@@ -46,9 +46,6 @@ module.exports.create = async event => {
       };
     }
 
-    // Store report.
-    const report = await Report.create(reportRequest);
-
     // Increase user's daily connections, if user has not seen this macAdress yet.
     const hasAlreadySeenMacAddress = Report.findOne({
       where: {
@@ -71,6 +68,9 @@ module.exports.create = async event => {
         where: { id: reportRequest.userId }
       });
     }
+
+    // Store report.
+    const report = await Report.create(reportRequest);
 
     return {
       statusCode: 200
