@@ -144,6 +144,7 @@ module.exports.getUser = async event => {
         user.score = rankedUser.score;
       }
     }
+    topFiveRankedUsers = rankedUsers.slice(0, 5);
 
     const json = {
       userId: user.id,
@@ -151,7 +152,7 @@ module.exports.getUser = async event => {
       userRank: calculatedUserRank,
       userTitle: user.title,
       userDailyConnections: user.dailyConnections,
-      globalRanking: rankedUsers
+      globalRanking: topFiveRankedUsers
     };
 
     return {
