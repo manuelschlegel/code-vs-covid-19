@@ -49,10 +49,24 @@ module.exports.create = async event => {
     // Store report.
     const report = await Report.create(reportRequest);
 
-    // Increase user's daily connections.
-    User.increment(["dailyConnections"], {
-      where: { id: reportRequest.userId }
+    // Increase user's daily connections, if user has not seen this macAdress yet.
+    const hasAlreadySeenMacAddress = Report.findOne({
+      where: sequelize.where(
+        sequelize.fn("date", sequelize.col("timeStamp")),
+        ">",
+        new Date().getUTCFullYear() +
+          "-" +
+          new Date().getUTCMonth() +
+          "-" +
+          new Date().getUTCDate()
+      )
     });
+
+    if (!hasAlreadySeenMacAddress) {
+      User.increment(["dailyConnections"], {
+        where: { id: reportRequest.userId }
+      });
+    }
 
     return {
       statusCode: 200
