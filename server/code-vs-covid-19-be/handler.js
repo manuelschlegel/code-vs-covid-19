@@ -55,10 +55,10 @@ module.exports.create = async event => {
           Sequelize.fn("date", Sequelize.col("timeStamp")),
           ">",
           new Date().getUTCFullYear() +
-            "-" +
-            new Date().getUTCMonth() +
-            "-" +
-            new Date().getUTCDate()
+          "-" +
+          new Date().getUTCMonth() +
+          "-" +
+          new Date().getUTCDate()
         )
       }
     });
@@ -201,9 +201,9 @@ const calculateScore = (lastScore, dailyConnections) => {
   const score = Math.max(
     0,
     lastScore +
-      (minutes * 100) / 1440 -
-      dailyConnections -
-      Math.pow(dailyConnections, 1.2)
+    (minutes * 100) / 1440 -
+    dailyConnections -
+    Math.pow(dailyConnections, 1.2)
   );
   const scoreRounded = Math.round(score);
 
