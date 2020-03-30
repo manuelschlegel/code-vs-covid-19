@@ -14,6 +14,9 @@ The information collected basically registers contacts with other users. This in
 
 We strongly believe in the social responsibility of each individual and therefore collect no information that makes it possible to link the contacts to a real person. So means, if you get a notification that you have been infected, you can decide what to do with it. However, we strongly recommend that you seek medical advice and put yourself in self-quarantine.
 
+### Video
+Checkout this one minute teaser to learn about the app: https://vimeo.com/402159733
+
 ### Devpost
 The devpost project of this repository is [here](https://devpost.com/software/keepdistance).
 
