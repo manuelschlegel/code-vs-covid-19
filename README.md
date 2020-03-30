@@ -21,18 +21,22 @@ The devpost project of this repository is [here](https://devpost.com/software/ke
 
 ### client
 
-Run: `npm start`
+1. Navigate to: `client/CoreApp`
+2. Run: `npm start`
 
 ### server
 
-Run: `npm start`
+1. Navigate to: `server/code-vs-covid-19-be`
+2. Run: `npm start`
 
 ## Deploy
 
 ### client
 
-TODO
+1. Navigate to: `client/CoreApp`
+2. Run: `npm start`
 
 ### server
 
-Run: `npm run deploy`
+1. Navigate to: `server/code-vs-covid-19-be`
+2. Run: `npm run deploy`
