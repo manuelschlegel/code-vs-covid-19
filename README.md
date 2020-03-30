@@ -21,8 +21,9 @@ The devpost project of this repository is [here](https://devpost.com/software/ke
 
 ### Client
 
-1. Navigate to: `client/CoreApp`
-2. Run: `npm start`
+1. Make sure that you have Android Studio for development setup and yoru device connected (development mode on, usb debug on).
+2. Navigate to: `client/CoreApp`
+3. Run: `run npx react-native run-android`
 
 ### Server
 
