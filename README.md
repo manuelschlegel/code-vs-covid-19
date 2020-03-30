@@ -47,9 +47,9 @@ Build and deploy the APK to your phone or emulator using Android Studio.
 ### client
 
 1. Navigate to: `client/CoreApp`
-2. Run: `npm test`
+2. Run: `npm run test`
 
 ### server
 
 1. Navigate to: `server/code-vs-covid-19-be`
-2. Run: `npm test`
+2. Run: `npm run test`
