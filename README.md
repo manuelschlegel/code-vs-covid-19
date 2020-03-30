@@ -27,8 +27,9 @@ The devpost project of this repository is [here](https://devpost.com/software/ke
 
 ### Server
 
-1. Navigate to: `server/code-vs-covid-19-be`
-2. Run: `npm start`
+1. Setup your local AWS credentials
+2. Navigate to: `server/code-vs-covid-19-be`
+3. Run: `npm start`
 
 ## Deploy
 
