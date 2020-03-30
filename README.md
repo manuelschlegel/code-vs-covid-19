@@ -21,11 +21,11 @@ The devpost project of this repository is [here](https://devpost.com/software/ke
 
 ### client
 
-TODO
+Run: `npm start`
 
 ### server
 
-TODO
+Run: `npm start`
 
 ## Deploy
 
@@ -35,4 +35,4 @@ TODO
 
 ### server
 
-TODO
+Run: `npm run deploy`
