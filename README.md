@@ -5,7 +5,17 @@
 ### DEVPOST
 The devpost project of this repository is [here](https://devpost.com/software/keepdistance).
 
-## How to use
+## Run locally
+
+### client
+
+TODO
+
+### server
+
+TODO
+
+## Deploy
 
 ### client
 
