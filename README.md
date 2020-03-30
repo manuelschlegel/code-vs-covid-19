@@ -17,7 +17,7 @@ We strongly believe in the social responsibility of each individual and therefor
 ### Devpost
 The devpost project of this repository is [here](https://devpost.com/software/keepdistance).
 
-## Run locally
+## Develop & run locally
 
 ### client
 
@@ -33,8 +33,7 @@ The devpost project of this repository is [here](https://devpost.com/software/ke
 
 ### client
 
-1. Navigate to: `client/CoreApp`
-2. Run: `npm start`
+Build and deploy the APK to your phone or emulator using Android Studio.
 
 ### server
 
