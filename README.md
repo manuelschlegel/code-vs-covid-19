@@ -1,5 +1,7 @@
 # KeepDistance
 
+The world is rapidly falling into a pandemic crisis. Experts say we should all practice social distancing, however, some parts of the population struggle with the execution of these practices. We tried to find solutions that encourage social distancing in a fun and easy way and at the same time enable anonymized contact tracing.
+
 ## General Information
 
 ### Introduction
