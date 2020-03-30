@@ -40,3 +40,16 @@ Build and deploy the APK to your phone or emulator using Android Studio.
 1. Setup your local AWS credentials
 2. Navigate to: `server/code-vs-covid-19-be`
 3. Run: `npm run deploy`
+
+
+## Test
+
+### client
+
+1. Navigate to: `client/CoreApp`
+2. Run: `npm test`
+
+### server
+
+1. Navigate to: `server/code-vs-covid-19-be`
+2. Run: `npm test`
