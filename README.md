@@ -17,7 +17,7 @@ We strongly believe in the social responsibility of each individual and therefor
 ### Devpost
 The devpost project of this repository is [here](https://devpost.com/software/keepdistance).
 
-## Develop & run locally
+## Develop & Run locally
 
 ### Client
 
