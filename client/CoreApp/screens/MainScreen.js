@@ -14,6 +14,7 @@ import { ScoringCircle } from '../components/CircleScore';
 
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
+import DeviceInfo from 'react-native-device-info';
 
 let appJson = {
   userId: 'uausdfasdufausdufasudf',
@@ -41,12 +42,12 @@ class MainScreen extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('https://reactnative.dev/movies.json')
+    return fetch('https://qpadpzm2je.execute-api.us-east-1.amazonaws.com/production/users/' + DeviceInfo.getUniqueId())
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
           isLoading: false,
-          dataSource: appJson,
+          dataSource: responseJson,
         });
       })
       .catch(error => {
@@ -58,12 +59,12 @@ class MainScreen extends React.Component {
     this.setState({
       refreshing: true
     })
-    fetch('https://reactnative.dev/movies.json')
+    fetch('https://qpadpzm2je.execute-api.us-east-1.amazonaws.com/production/users/' + DeviceInfo.getUniqueId())
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
           refreshing: false,
-          dataSource: appJson,
+          dataSource: responseJson,
         });
       })
       .catch(error => {
@@ -90,11 +91,11 @@ class MainScreen extends React.Component {
             }}>
             <View>
               <Text style={styles.paragraph}>
-                #{val.userRank} {val.userName}
+                #{val.rank} {val.username}
               </Text>
             </View>
             <View>
-              <Text style={styles.paragraph}>{val.userScore} pts</Text>
+              <Text style={styles.paragraph}>{val.score} pts</Text>
             </View>
           </View>
         </Card>

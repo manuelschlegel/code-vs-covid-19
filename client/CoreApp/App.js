@@ -112,25 +112,27 @@ export default class App extends Component {
     if (!peripheral.name) {
       peripheral.name = 'none';
     }
-    let time = new Date().toISOString()
-    let body = JSON.stringify({
-      userId: this.state.userID,
-      userMacAddress: 'none',
-      detectedDeviceMacAddress: peripheral.id,
-      detectedDeviceName: peripheral.name,
-      detectedDeviceRssi: peripheral.rssi,
-      timeStamp: time
-    })
-    this.sendMessageToAPI(body);
-
-    peripherals.set(peripheral.id, peripheral);
-    this.setState({ peripherals });
-    this.setState({
-      latestPeripheral: peripheral
-    })
+    if (peripheral.rssi > -65) {
+      let time = new Date().toISOString()
+      let body = JSON.stringify({
+        userId: this.state.userID,
+        userMacAddress: 'none',
+        detectedDeviceMacAddress: peripheral.id,
+        detectedDeviceName: peripheral.name,
+        detectedDeviceRssi: peripheral.rssi,
+        timeStamp: time
+      })
+      this.sendMessageToAPI(body);
+  
+      peripherals.set(peripheral.id, peripheral);
+      this.setState({ peripherals });
+      this.setState({
+        latestPeripheral: peripheral
+      })
+    }
   }
   async sendMessageToAPI(body) {
-    fetch('https://nq8suf5nj7.execute-api.us-east-1.amazonaws.com/dev/report', {
+    fetch('https://qpadpzm2je.execute-api.us-east-1.amazonaws.com/production/report', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
