@@ -40,13 +40,13 @@ functions:
           path: report
           method: post
           cors: true
-  getAll:
-    handler: handler.getAll
-    events:
-      - http:
-          path: reports
-          method: get
-          cors: true
+#  getAll:
+#    handler: handler.getAll
+#    events:
+#      - http:
+#          path: reports
+#          method: get
+#          cors: true
   getUser:
     handler: handler.getUser
     events:
