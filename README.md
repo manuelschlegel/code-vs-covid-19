@@ -1,4 +1,4 @@
-# code-vs-covid-19
+# KeepDistance
 
 ## General Information
 
