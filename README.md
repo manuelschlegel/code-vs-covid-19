@@ -19,23 +19,23 @@ The devpost project of this repository is [here](https://devpost.com/software/ke
 
 ## Develop & run locally
 
-### client
+### Client
 
 1. Navigate to: `client/CoreApp`
 2. Run: `npm start`
 
-### server
+### Server
 
 1. Navigate to: `server/code-vs-covid-19-be`
 2. Run: `npm start`
 
 ## Deploy
 
-### client
+### Client
 
 Build and deploy the APK to your phone or emulator using Android Studio.
 
-### server
+### Server
 
 1. Setup your local AWS credentials
 2. Navigate to: `server/code-vs-covid-19-be`
@@ -44,12 +44,12 @@ Build and deploy the APK to your phone or emulator using Android Studio.
 
 ## Test
 
-### client
+### Client
 
 1. Navigate to: `client/CoreApp`
 2. Run: `npm run test`
 
-### server
+### Server
 
 1. Navigate to: `server/code-vs-covid-19-be`
 2. Run: `npm run test`
